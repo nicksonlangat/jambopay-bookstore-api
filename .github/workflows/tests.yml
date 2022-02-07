@@ -1,5 +1,5 @@
 # The name of the action
-name: Django Tests
+name: JamboPay Django CI 
 # When the action is triggered
 on:
   push:
@@ -11,8 +11,8 @@ on:
 
 # What to do when the action is triggered
 jobs:
-  # A job called 'build' - arbitrary
-  build:
+  # A job called 'jambopay_build' - arbitrary
+  jambopay_build:
     # Run on a Ubuntu VM
     runs-on: ubuntu-latest
     env:
@@ -50,7 +50,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Move into the Django project folder (./app) and run pytest
+      # Move into the Django project folder (./) and run test
       - name: Test with pytest
         working-directory: ./
         env:
