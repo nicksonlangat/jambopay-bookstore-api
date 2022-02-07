@@ -15,6 +15,25 @@ jobs:
   build:
     # Run on a Ubuntu VM
     runs-on: ubuntu-latest
+    env:
+      SECRET_KEY: hco-3a)k+zgu(cs$ugz$6j2!y0b5s%z3c!ycv$lm$^8ekvn(g@
+      MY_POSTGRES_USER: someuser
+      MY_POSTGRES_PASSWORD: somepassword
+      MY_POSTGRES_DB: somedbname
+    services:
+      postgres_main:
+        image: postgres:12
+        env:
+          POSTGRES_USER: ${{ env.MY_POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.MY_POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ env.MY_POSTGRES_DB }}
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready 
+          --health-interval 10s 
+          --health-timeout 5s 
+          --health-retries 5
     steps:
       # Checkout the GitHub repo
       - uses: actions/checkout@v2
@@ -34,4 +53,12 @@ jobs:
       # Move into the Django project folder (./app) and run pytest
       - name: Test with pytest
         working-directory: ./
+        env:
+          DEBUG: "0"
+          SECRET_KEY: ${{ env.DJANGO_SECRET_KEY }}
+          DB_NAME: ${{ env.MY_POSTGRES_USER }}
+          DB_PASSWORD: ${{ env.MY_POSTGRES_PASSWORD }}
+          DB_HOST: localhost
+          DB_DATABASE: ${{ env.MY_POSTGRES_DB }}
+          DB_PORT: 5432
         run: coverage run --source='.' manage.py test
