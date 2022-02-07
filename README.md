@@ -58,6 +58,9 @@ DB_HOST="localhost or any other host name"
 ![swagger](screenshots/image2.png)
 
 ## Running tests
-- Tests can be run by using  `coverage run --source='.' manage.py test  `
+- Tests can be run by using  `coverage run --source='.' manage.py test `
 - Check coverage report by `coverage report`
 ![swagger](screenshots/image3.png)
+
+## Github CI for tests
+- Tests are also run by a CI workflow upon pushes to the `master`  branch.
