@@ -60,3 +60,4 @@ DB_HOST="localhost or any other host name"
 ## Running tests
 - Tests can be run by using  `coverage run --source='.' manage.py test  `
 - Check coverage report by `coverage report`
+![swagger](screenshots/image3.png)
