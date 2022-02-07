@@ -51,7 +51,7 @@ jobs:
           pip install -r requirements.txt
 
       # Move into the Django project folder (./) and run test
-      - name: Test with pytest
+      - name: Test the code
         working-directory: ./
         env:
           DEBUG: "0"
