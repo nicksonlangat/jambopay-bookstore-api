@@ -44,4 +44,8 @@ DB_HOST="localhost or any other host name"
 ## CONTAINERISATION
 - Used Docker 
 - You can build the spin up the docker containers by `docker-compose -f docker-compose.yml up --build `
-- Visit `localhost` to view the app running inside the container. 
+- Visit `localhost` to view the app running inside the container.
+
+## Running tests
+- Tests can be run by using  `coverage run --source='.' manage.py test  `
+- Check coverage report by `coverage report`
