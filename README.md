@@ -43,8 +43,19 @@ DB_HOST="localhost or any other host name"
 
 ## CONTAINERISATION
 - Used Docker 
+- Create a .dev_env file in root directory and put these key=values in it:
+```
+DEBUG=on
+SECRET_KEY='your secret key'
+DB_NAME="your_db_name"
+DB_USER="your_postgres_username"
+DB_PASSWORD="your_postgres_password"
+DB_PORT="your_postgres_port"
+DB_HOST="localhost or any other host name"
+```
 - You can build the spin up the docker containers by `docker-compose -f docker-compose.yml up --build `
 - Visit `localhost` to view the app running inside the container.
+![swagger](screenshots/image2.png)
 
 ## Running tests
 - Tests can be run by using  `coverage run --source='.' manage.py test  `

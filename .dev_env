@@ -2,6 +2,6 @@ DEBUG=on
 SECRET_KEY=hco-3a)k+zgu(cs$ugz$6j2!y0b5s%z3c!ycv$lm$^8ekvn(g@
 DB_NAME=inventory_db
 DB_USER=inventory_user
-DB_PASSWORD=password
+DB_PASSWORD=pa55word
 DB_PORT=5432
 DB_HOST=db
