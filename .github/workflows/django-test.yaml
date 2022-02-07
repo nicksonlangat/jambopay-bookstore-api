@@ -1,0 +1,54 @@
+name: JampoPay Django CI
+
+on:
+    workflow_call:
+    workflow_dispatch:
+    push:
+       branches: [master]
+    pull_request:
+        branches: [master]
+
+jobs:
+  jambopay_build:
+    runs-on: ubuntu-latest
+    env:
+      SECRET_KEY: hco-3a)k+zgu(cs$ugz$6j2!y0b5s%z3c!ycv$lm$^8ekvn(g@
+      MY_POSTGRES_USER: someuser
+      MY_POSTGRES_PASSWORD: somepassword
+      MY_POSTGRES_DB: somedbname
+    services:
+      postgres_main:
+        image: postgres:12
+        env:
+          POSTGRES_USER: ${{ env.MY_POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.MY_POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ env.MY_POSTGRES_DB }}
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready 
+          --health-interval 10s 
+          --health-timeout 5s 
+          --health-retries 5
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+           python-version: 3.9
+      - name: Install requirements
+        run: |
+            pip install -r requirements.txt
+      - name: Run tests
+      env:
+          DEBUG: "0"
+          SECRET_KEY: ${{ env.DJANGO_SECRET_KEY }}
+          DB_NAME: ${{ env.MY_POSTGRES_USER }}
+          DB_PASSWORD: ${{ env.MY_POSTGRES_PASSWORD }}
+          DB_HOST: localhost
+          DB_DATABASE: ${{ env.MY_POSTGRES_DB }}
+          DB_PORT: 5432
+        run: |
+            python manage.py test
