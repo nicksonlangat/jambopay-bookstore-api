@@ -20,6 +20,7 @@ jobs:
       MY_POSTGRES_USER: someuser
       MY_POSTGRES_PASSWORD: somepassword
       MY_POSTGRES_DB: somedbname
+      GITHUB_TOKEN: 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
     services:
       postgres_main:
         image: postgres:12
@@ -62,4 +63,11 @@ jobs:
           DB_HOST: localhost
           DB_DATABASE: ${{ env.MY_POSTGRES_DB }}
           DB_PORT: 5432
-        run: coverage run --source='.' manage.py test
+        run: #coverage run --source='.' manage.py test
+          pip install pytest pytest-cov
+          python -m pytest --cov=./core --cov-report xml
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: coverage.xml
